@@ -37,14 +37,14 @@ const compact = new Intl.NumberFormat("ar-SA", { notation: "compact", maximumFra
 const sar = new Intl.NumberFormat("ar-SA", { maximumFractionDigits: 0 });
 
 const priorityOptions = [
-  { value: "all", label: "ÙƒÙ„" },
-  { value: "Critical", label: "Ø­Ø±Ø¬" },
-  { value: "High", label: "Ù…Ø±ØªÙØ¹" },
-  { value: "Medium", label: "Ù…ØªÙˆØ³Ø·" },
-  { value: "Low", label: "Ù…Ù†Ø®ÙØ¶" }
+  { value: "all", label: "كل" },
+  { value: "Critical", label: "حرج" },
+  { value: "High", label: "مرتفع" },
+  { value: "Medium", label: "متوسط" },
+  { value: "Low", label: "منخفض" }
 ];
 
-const typeOptions = ["ÙƒÙ„", "Ø§Ø³ØªØ«Ù…Ø§Ø±", "Ø§Ø¯Ø§Ø±Ø© ÙˆØªØ´ØºÙŠÙ„", "ØªÙ†ÙÙŠØ°ÙŠ ÙØ§Ø®Ø±"];
+const typeOptions = ["كل", "استثمار", "ادارة و تشغيل", "تنفيذي فاخر"];
 
 function DashboardHeader() {
   return (
@@ -54,15 +54,15 @@ function DashboardHeader() {
           <Home className="h-7 w-7 text-gold-light" strokeWidth={1.6} />
         </div>
         <div>
-          <h1 className="text-3xl font-extrabold tracking-normal text-gold-light md:text-5xl">Mathwa <span className="text-gold">Ù…Ø«ÙˆÙ‰</span></h1>
-          <p className="mt-2 text-sm font-medium text-gold-light/62">Ù„ÙˆØ­Ø© Ø§Ø³ØªØ®Ø¨Ø§Ø±Ø§Øª Ø§Ù„Ø´ÙˆØ§ØºØ± ÙˆØ§Ù„Ø³ÙˆÙ‚ Ø§Ù„Ø¹Ù‚Ø§Ø±ÙŠ</p>
+          <h1 className="text-3xl font-extrabold tracking-normal text-gold-light md:text-5xl">Mathwa <span className="text-gold">مثوى</span></h1>
+          <p className="mt-2 text-sm font-medium text-gold-light/62">لوحة استخبارات الشواغر العقارية</p>
         </div>
       </div>
       <div className="flex flex-wrap items-center gap-3 text-sm">
-        <span className="border border-gold/20 bg-card-bg px-4 py-3 text-gold-light/75">Ø§Ù„ÙØªØ±Ø©: Ø§Ù„Ø±Ø¨Ø¹ Ø§Ù„Ø«Ø§Ù†ÙŠ Ù¢Ù Ù¢Ù¦</span>
+        <span className="border border-gold/20 bg-card-bg px-4 py-3 text-gold-light/75">الفترة: الربع الثاني ٢٠٢٦</span>
         <button className="inline-flex items-center gap-2 bg-gold px-4 py-3 font-bold text-espresso transition hover:bg-gold-light">
           <Download className="h-4 w-4" />
-          ØªØµØ¯ÙŠØ± Ø§Ù„ØªÙ‚Ø±ÙŠØ±
+          تصدير التقرير
         </button>
       </div>
     </header>
@@ -108,17 +108,17 @@ function KPICard({ icon: Icon, label, target, suffix = "", mode = "number", note
 function HeroKPIBar() {
   return (
     <section className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-4 px-4 md:grid-cols-5 md:px-6">
-      <KPICard icon={Building2} label="Ø§Ù„ÙØ±ÙˆØ¹" target={portfolioKPIs.branches} note="BR" />
-      <KPICard icon={Layers3} label="Ø§Ù„ÙˆØ­Ø¯Ø§Øª" target={portfolioKPIs.units} note="UNITS" />
-      <KPICard icon={TrendingDown} label="Ø§Ù„Ø´ÙˆØ§ØºØ±" target={portfolioKPIs.vacant} note="VAC" />
-      <KPICard icon={Gauge} label="Ø§Ù„Ø¥Ø´ØºØ§Ù„" target={portfolioKPIs.occupancy * 100} mode="percent" note="OCC" />
-      <KPICard icon={ShieldAlert} label="Ù‚ÙŠÙ…Ø© Ù…ÙÙ‚ÙˆØ¯Ø©" target={portfolioKPIs.lostValue} mode="money" suffix=" Ø±.Ø³" note="LOSS" />
+      <KPICard icon={Building2} label="الفروع" target={portfolioKPIs.branches} note="BR" />
+      <KPICard icon={Layers3} label="الوحدات" target={portfolioKPIs.units} note="UNITS" />
+      <KPICard icon={TrendingDown} label="الشواغر" target={portfolioKPIs.vacant} note="VAC" />
+      <KPICard icon={Gauge} label="الإشغال" target={portfolioKPIs.occupancy * 100} mode="percent" note="OCC" />
+      <KPICard icon={ShieldAlert} label="قيمة مفقودة" target={portfolioKPIs.lostValue} mode="money" suffix=" ر.س" note="LOSS" />
     </section>
   );
 }
 
 function FiltersBar({ filters, setFilters }) {
-  const districts = useMemo(() => ["ÙƒÙ„", ...new Set(branches.map((branch) => branch.district))], []);
+  const districts = useMemo(() => ["كل", ...new Set(branches.map((branch) => branch.district))], []);
   return (
     <section className="sticky top-0 z-30 mt-8 border-y border-gold/10 bg-espresso/82 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-6">
@@ -185,7 +185,7 @@ function BranchDrawer({ branch, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50">
-      <button aria-label="Ø¥ØºÙ„Ø§Ù‚" className="absolute inset-0 bg-black/62 backdrop-blur-sm" onClick={onClose} />
+      <button aria-label="إغلاق" className="absolute inset-0 bg-black/62 backdrop-blur-sm" onClick={onClose} />
       <aside className="absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto border-l border-gold/20 bg-card-bg p-6 shadow-2xl">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -198,27 +198,27 @@ function BranchDrawer({ branch, onClose }) {
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3">
-          <Info label="Ø§Ù„Ù†ÙˆØ¹" value={branch.type} />
-          <Info label="Ø§Ù„Ø£ÙˆÙ„ÙˆÙŠØ©" value={<PriorityBadge priority={branch.priority} />} />
-          <Info label="Ø§Ù„ÙˆØ­Ø¯Ø§Øª" value={nf.format(branch.units)} />
-          <Info label="Ø§Ù„Ø´Ø§ØºØ±Ø©" value={nf.format(branch.vacant)} danger={branch.vacant > 0} />
+          <Info label="النوع" value={branch.type} />
+          <Info label="الأولوية" value={<PriorityBadge priority={branch.priority} />} />
+          <Info label="الوحدات" value={nf.format(branch.units)} />
+          <Info label="الشاغرة" value={nf.format(branch.vacant)} danger={branch.vacant > 0} />
         </div>
 
         <div className="mt-6 border border-gold/12 bg-espresso/50 p-4">
-          <p className="mb-3 text-sm font-bold text-gold-light/70">Ù…Ø¤Ø´Ø± Ø§Ù„Ø¥Ø´ØºØ§Ù„</p>
+          <p className="mb-3 text-sm font-bold text-gold-light/70">مؤشر الإشغال</p>
           <OccupancyBar value={branch.occupancy} wide />
         </div>
 
         <div className="mt-6 border border-gold/12 bg-card-elevated p-4">
-          <p className="text-sm font-bold text-gold-light/70">Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ Ø§Ù„Ù…Ù‚ØªØ±Ø­</p>
+          <p className="text-sm font-bold text-gold-light/70">الإجراء المقترح</p>
           <p className="mt-2 text-lg font-extrabold text-gold-light">{actionLabels[branch.action]}</p>
         </div>
 
 
         <div className="mt-6 border-t border-gold/10 pt-5">
-          <p className="text-sm text-gold-light/60">Ø§Ù„Ø£Ø«Ø± Ø§Ù„Ø±Ø¨Ø­ÙŠ</p>
+          <p className="text-sm text-gold-light/60">الأثر الربحي</p>
           <p className={`numeric mt-1 font-playfair text-3xl italic ${branch.profit >= 0 ? "text-success-light" : "text-danger-light"}`}>
-            {sar.format(branch.profit)} Ø±.Ø³
+            {sar.format(branch.profit)} ر.س
           </p>
         </div>
       </aside>
@@ -243,8 +243,8 @@ function BranchHeatmap({ filters }) {
   const filtered = useMemo(() => {
     const rows = branches.filter((branch) => (
       (filters.priority === "all" || branch.priority === filters.priority) &&
-      (filters.district === "ÙƒÙ„" || branch.district === filters.district) &&
-      (filters.type === "ÙƒÙ„" || branch.type === filters.type)
+      (filters.district === "كل" || branch.district === filters.district) &&
+      (filters.type === "كل" || branch.type === filters.type)
     ));
     return [...rows].sort((a, b) => {
       const av = a[sort.key];
@@ -262,20 +262,20 @@ function BranchHeatmap({ filters }) {
   };
 
   const headers = [
-    ["name", "Ø§Ù„ÙØ±Ø¹"],
-    ["district", "Ø§Ù„Ø­ÙŠ"],
-    ["type", "Ø§Ù„Ù†ÙˆØ¹"],
-    ["units", "Ø§Ù„ÙˆØ­Ø¯Ø§Øª"],
-    ["vacant", "Ø§Ù„Ø´Ø§ØºØ±Ø©"],
-    ["occupancy", "Ø§Ù„Ø¥Ø´ØºØ§Ù„"],
-    ["priority", "Ø§Ù„Ø£ÙˆÙ„ÙˆÙŠØ©"]
+    ["name", "الفرع"],
+    ["district", "الحي"],
+    ["type", "النوع"],
+    ["units", "الوحدات"],
+    ["vacant", "الشاغرة"],
+    ["occupancy", "الإشغال"],
+    ["priority", "الأولوية"]
   ];
 
   return (
     <section ref={revealRef} className="mx-auto mt-8 w-full max-w-7xl px-4 md:px-6">
       <Shell>
         <div className="p-4 md:p-6">
-          <SectionTitle icon={ArrowDownUp} title="Ø®Ø±ÙŠØ·Ø© Ø§Ù„ÙØ±ÙˆØ¹ Ø§Ù„Ø­Ø±Ø§Ø±ÙŠØ©" subtitle={`${nf.format(filtered.length)} ÙØ±Ø¹ Ø¶Ù…Ù† Ø§Ù„ØªØµÙÙŠØ© Ø§Ù„Ø­Ø§Ù„ÙŠØ©`} />
+          <SectionTitle icon={ArrowDownUp} title="خريطة الفروع الحرارية" subtitle={`${nf.format(filtered.length)} فرع ضمن التصفية الحالية`} />
           <div className="mt-5 overflow-x-auto">
             <table className="data-table w-full min-w-[1040px] border-separate border-spacing-y-2 text-sm">
               <colgroup>
@@ -298,7 +298,7 @@ function BranchHeatmap({ filters }) {
                       </button>
                     </th>
                   ))}
-                  <th className="px-3 py-2 text-center">Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡</th>
+                  <th className="px-3 py-2 text-center">الإجراء</th>
                 </tr>
               </thead>
               <tbody>
@@ -347,7 +347,7 @@ function VacancyTracker() {
     <section ref={revealRef} className="mx-auto mt-8 grid w-full max-w-7xl grid-cols-1 gap-4 px-4 lg:grid-cols-[0.85fr_1.15fr] md:px-6">
       <Shell>
         <div className="p-5">
-          <SectionTitle icon={SearchCheck} title="ØªØªØ¨Ø¹ Ø§Ù„Ø´ÙˆØ§ØºØ±" subtitle="ØªÙˆØ²ÙŠØ¹ Ù…Ø¯Ø© Ø§Ù„Ø´ØºÙˆØ±" />
+          <SectionTitle icon={SearchCheck} title="تتبع الشواغر" subtitle="توزيع مدة الشغور" />
           <div className="relative mt-6 h-72">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -360,7 +360,7 @@ function VacancyTracker() {
             <div className="pointer-events-none absolute inset-0 grid place-items-center">
               <div className="text-center">
                 <p className="numeric font-playfair text-4xl italic text-gold-light">{nf.format(portfolioKPIs.vacant)}</p>
-                <p className="text-sm font-bold text-gold-light/60">ÙˆØ­Ø¯Ø©</p>
+                <p className="text-sm font-bold text-gold-light/60">وحدة</p>
               </div>
             </div>
           </div>
@@ -380,11 +380,11 @@ function VacancyTracker() {
               </colgroup>
               <thead className="text-gold-light/55">
                 <tr>
-                  <th className="p-2 text-center">Ø§Ù„ÙØ±Ø¹</th>
-                  <th className="p-2 text-center">Ø§Ù„ÙˆØ­Ø¯Ø©</th>
-                  <th className="p-2 text-center">Ø§Ù„Ø£ÙŠØ§Ù…</th>
-                  <th className="p-2 text-center">Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø´Ù‡Ø±ÙŠ</th>
-                  <th className="p-2 text-center">Ø§Ù„ÙØ§Ù‚Ø¯</th>
+                  <th className="p-2 text-center">الفرع</th>
+                  <th className="p-2 text-center">الوحدة</th>
+                  <th className="p-2 text-center">الأيام</th>
+                  <th className="p-2 text-center">السعر الشهري</th>
+                  <th className="p-2 text-center">الفاقد</th>
                 </tr>
               </thead>
               <tbody>
@@ -423,16 +423,16 @@ function DistrictLeaderboard() {
     <section ref={revealRef} className="mx-auto mt-8 w-full max-w-7xl px-4 md:px-6">
       <Shell>
         <div className="p-5 md:p-6">
-          <SectionTitle icon={MapPin} title="ØªØ±ØªÙŠØ¨ Ø§Ù„Ø£Ø­ÙŠØ§Ø¡" subtitle="Ù¢Ù  Ø­ÙŠ Ù…Ø±ØªØ¨Ø© Ø­Ø³Ø¨ Ù…ØªÙˆØ³Ø· Ø§Ù„Ø¥Ø´ØºØ§Ù„" />
+          <SectionTitle icon={MapPin} title="ترتيب الأحياء" subtitle={`${nf.format(rows.length)} حي مرتبة حسب متوسط الإشغال`} />
           <div className="mt-5 space-y-2">
             {rows.map((row, index) => (
               <div key={row.district} className="grid grid-cols-[3rem_1fr] gap-3 border border-gold/10 bg-card-elevated/58 p-3 md:grid-cols-[3rem_10rem_1fr_8rem_7rem] md:items-center">
-                <div className="text-center text-lg font-extrabold text-gold-light">{index < 3 ? ["ðŸ¥‡", "ðŸ¥ˆ", "ðŸ¥‰"][index] : nf.format(index + 1)}</div>
+                <div className="text-center text-lg font-extrabold text-gold-light">{index < 3 ? ["🥇", "🥈", "🥉"][index] : nf.format(index + 1)}</div>
                 <div className="font-extrabold text-gold-light">{row.district}</div>
                 <OccupancyBar value={row.avgOccupancy} wide />
-                <div className="numeric font-mono text-sm text-gold-light/80">{nf.format(row.vacant)} Ø´Ø§ØºØ±Ø©</div>
-                <div>{row.criticalCount > 0 && <span className="bg-danger/25 px-3 py-1 text-xs font-bold text-danger-light">{nf.format(row.criticalCount)} Ø­Ø±Ø¬</span>}</div>
-                <div className="text-center text-xs font-bold text-gold-light/62">{nf.format(row.branchCount)} ÙØ±ÙˆØ¹</div>
+                <div className="numeric font-mono text-sm text-gold-light/80">{nf.format(row.vacant)} شاغرة</div>
+                <div>{row.criticalCount > 0 && <span className="bg-danger/25 px-3 py-1 text-xs font-bold text-danger-light">{nf.format(row.criticalCount)} حرج</span>}</div>
+                <div className="text-center text-xs font-bold text-gold-light/62">{nf.format(row.branchCount)} فروع</div>
               </div>
             ))}
           </div>
@@ -451,7 +451,7 @@ function DashboardFooter() {
 }
 
 export default function Dashboard() {
-  const [filters, setFilters] = useState({ priority: "all", district: "ÙƒÙ„", type: "ÙƒÙ„" });
+  const [filters, setFilters] = useState({ priority: "all", district: "كل", type: "كل" });
 
   return (
     <main className="min-h-screen bg-espresso font-tajawal text-gold-light">

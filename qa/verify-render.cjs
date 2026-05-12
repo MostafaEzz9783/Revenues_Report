@@ -3,6 +3,7 @@ const { chromium } = require("playwright");
 const fakePrefixes = ["SL-", "AR-", "NS-", "ML-", "MR-", "SH-", "NJ-", "NZ-", "DL-", "AZ-"];
 const excludedLabels = ["مثوى 45", "مثوى 54", "مثوى 55", "مثوى 56", "مثوى 57", "مكتب مثوى", "Mathwa Office"];
 const marketLabels = ["معيار السوق", "Market Benchmark", "Studio", "1BR", "2BR"];
+const mojibakeMarkers = ["Ù", "Ø", "â", "ðŸ"];
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
@@ -69,6 +70,7 @@ const marketLabels = ["معيار السوق", "Market Benchmark", "Studio", "1B
   const fakeUnitCodes = fakePrefixes.filter((code) => vacancyText.includes(code));
   const excludedVisible = excludedLabels.filter((label) => pageText.includes(label));
   const marketVisible = marketLabels.filter((label) => pageText.includes(label));
+  const mojibakeVisible = mojibakeMarkers.filter((marker) => pageText.includes(marker));
   const mappedVacancyRowsPresent = ["مثوى 13", "13-1006", "مثوى 5", "05-052"].every((value) =>
     vacancyText.includes(value)
   );
@@ -102,6 +104,7 @@ const marketLabels = ["معيار السوق", "Market Benchmark", "Studio", "1B
     fakeUnitCodes,
     excludedVisible,
     marketVisible,
+    mojibakeVisible,
     mappedVacancyRowsPresent,
     tableLayoutsDesktop,
     responsive,
