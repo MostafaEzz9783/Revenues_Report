@@ -1,4 +1,7 @@
 ﻿import { useMemo, useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
 import {
   Cell,
   Pie,
@@ -11,6 +14,7 @@ import {
   Building2,
   ChevronDown,
   Download,
+  ExternalLink,
   Gauge,
   Home,
   Layers3,
@@ -45,8 +49,9 @@ const priorityOptions = [
 ];
 
 const typeOptions = ["كل", "استثمار", "ادارة و تشغيل", "تنفيذي فاخر"];
+const vacantUnitsSheetUrl = "https://docs.google.com/spreadsheets/d/1o81wiw_brD1oWzrxJ-2Y-af2qCfLf0VbEM6ugIbIN4s/edit?usp=sharing";
 
-function DashboardHeader() {
+function DashboardHeader({ onExport, exporting, exportError }) {
   return (
     <header className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pb-8 pt-8 md:flex-row md:items-center md:justify-between md:px-6">
       <div className="flex items-center gap-4">
@@ -60,10 +65,17 @@ function DashboardHeader() {
       </div>
       <div className="flex flex-wrap items-center gap-3 text-sm">
         <span className="border border-gold/20 bg-card-bg px-4 py-3 text-gold-light/75">الفترة: الربع الثاني ٢٠٢٦</span>
-        <button className="inline-flex items-center gap-2 bg-gold px-4 py-3 font-bold text-espresso transition hover:bg-gold-light">
-          <Download className="h-4 w-4" />
-          تصدير التقرير
-        </button>
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={onExport}
+            disabled={exporting}
+            className="inline-flex items-center justify-center gap-2 bg-gold px-4 py-3 font-bold text-espresso transition hover:bg-gold-light disabled:cursor-wait disabled:opacity-70"
+          >
+            <Download className="h-4 w-4" />
+            {exporting ? "جاري التصدير..." : "تصدير التقرير"}
+          </button>
+          {exportError && <span className="text-xs font-bold text-danger-light">{exportError}</span>}
+        </div>
       </div>
     </header>
   );
@@ -159,6 +171,76 @@ function FiltersBar({ filters, setFilters }) {
   );
 }
 
+function ExecutiveAnalysis({ branchesView, vacantUnitsView }) {
+  const revealRef = useReveal();
+  const insights = useMemo(() => {
+    const totalVacant = branchesView.reduce((sum, branch) => sum + branch.vacant, 0);
+    const topVacancy = [...branchesView]
+      .filter((branch) => branch.vacant > 0)
+      .sort((a, b) => b.vacant - a.vacant)
+      .slice(0, 5);
+    const lostByBranch = vacantUnitsView.reduce((map, unit) => {
+      map.set(unit.branch, (map.get(unit.branch) || 0) + unit.lostValue);
+      return map;
+    }, new Map());
+    const topLost = [...lostByBranch.entries()]
+      .map(([branch, lostValue]) => ({ branch, lostValue }))
+      .sort((a, b) => b.lostValue - a.lostValue)
+      .slice(0, 5);
+    const critical = branchesView.filter((branch) => branch.occupancy < 0.4);
+    const watch = branchesView.filter((branch) => branch.occupancy < 0.6);
+    const topFiveVacancy = topVacancy.reduce((sum, branch) => sum + branch.vacant, 0);
+    const concentration = totalVacant > 0 ? Math.round((topFiveVacancy / totalVacant) * 100) : 0;
+    const totalLost = topLost.reduce((sum, item) => sum + item.lostValue, 0);
+    const recommendation = critical.length >= 5
+      ? "الأولوية الفورية هي إعادة التسعير وتنشيط الحملات للفروع الأقل من ٤٠٪ إشغال، مع متابعة أسبوعية حتى تعود لمستوى تشغيل مستقر."
+      : concentration >= 50
+        ? "الشواغر مركزة في عدد محدود من الفروع، لذلك الأفضل اعتماد خطط تنفيذية على مستوى كل فرع بدل معالجة عامة للمحفظة."
+        : totalLost >= 500000
+          ? "ينبغي ترتيب المعالجة حسب الوحدات الأعلى إيجارا والأطول شغورا لخفض الفاقد النقدي بأسرع أثر ممكن."
+          : "الوضع يتطلب ضبطا انتقائيا للأسعار ومتابعة للفروع تحت المراقبة قبل تحولها إلى أولوية حرجة.";
+
+    return { topVacancy, topLost, critical, watch, concentration, recommendation };
+  }, [branchesView, vacantUnitsView]);
+
+  const topVacancyText = insights.topVacancy.length
+    ? `تتركز الشواغر في ${insights.topVacancy.map((branch) => `${branch.name} (${nf.format(branch.vacant)})`).join("، ")}.`
+    : "لا توجد شواغر ضمن التصفية الحالية.";
+  const topLostText = insights.topLost.length
+    ? `أعلى فاقد مالي ظاهر في ${insights.topLost.map((item) => `${item.branch} (${sar.format(item.lostValue)} ر.س)`).join("، ")}.`
+    : "لا يوجد فاقد مالي ضمن التصفية الحالية.";
+
+  return (
+    <section ref={revealRef} className="mx-auto mt-8 w-full max-w-7xl px-4 md:px-6">
+      <Shell>
+        <div className="p-5 md:p-6">
+          <SectionTitle icon={ShieldAlert} title="تحليل تنفيذي للشواغر" subtitle="قراءة ديناميكية حسب الفلاتر الحالية" />
+          <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <AnalysisCard title="أعلى الفروع من حيث عدد الشواغر" body={topVacancyText} />
+            <AnalysisCard title="أعلى الفروع من حيث الفاقد المالي" body={topLostText} />
+            <AnalysisCard title="الفروع الحرجة" body={`${nf.format(insights.critical.length)} فرع تحت ٤٠٪ إشغال ويحتاج قرارا تنفيذيا سريعا.`} metric={nf.format(insights.critical.length)} />
+            <AnalysisCard title="الفروع تحت المراقبة" body={`${nf.format(insights.watch.length)} فرع تحت ٦٠٪ إشغال ويحتاج متابعة أسبوعية.`} metric={nf.format(insights.watch.length)} />
+            <AnalysisCard title="تركيز الشواغر" body={`${nf.format(insights.concentration)}٪ من الشواغر الحالية متركزة في أعلى ٥ فروع.`} metric={`${nf.format(insights.concentration)}٪`} />
+            <AnalysisCard title="توصية تنفيذية مختصرة" body={insights.recommendation} highlight />
+          </div>
+        </div>
+      </Shell>
+    </section>
+  );
+}
+
+function AnalysisCard({ title, body, metric, highlight }) {
+  return (
+    <div className={`border border-gold/12 p-4 ${highlight ? "bg-gold/10" : "bg-espresso/42"}`}>
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-base font-extrabold text-gold-light">{title}</h3>
+        {metric && <span className="numeric font-playfair text-3xl italic text-gold">{metric}</span>}
+      </div>
+      <p className="mt-3 text-sm leading-7 text-gold-light/68">{body}</p>
+    </div>
+  );
+}
+
 function OccupancyBar({ value, wide = false }) {
   const color = value > 0.85 ? "#95D5B2" : value > 0.7 ? "#E8D4A8" : value > 0.5 ? "#FFD166" : "#FCA5A5";
   return (
@@ -235,24 +317,19 @@ function Info({ label, value, danger }) {
   );
 }
 
-function BranchHeatmap({ filters }) {
+function BranchHeatmap({ filteredBranches }) {
   const [sort, setSort] = useState({ key: "vacant", direction: "desc" });
   const [selected, setSelected] = useState(null);
   const revealRef = useReveal();
 
   const filtered = useMemo(() => {
-    const rows = branches.filter((branch) => (
-      (filters.priority === "all" || branch.priority === filters.priority) &&
-      (filters.district === "كل" || branch.district === filters.district) &&
-      (filters.type === "كل" || branch.type === filters.type)
-    ));
-    return [...rows].sort((a, b) => {
+    return [...filteredBranches].sort((a, b) => {
       const av = a[sort.key];
       const bv = b[sort.key];
       const result = typeof av === "string" ? av.localeCompare(bv, "ar") : av - bv;
       return sort.direction === "asc" ? result : -result;
     });
-  }, [filters, sort]);
+  }, [filteredBranches, sort]);
 
   const setSortKey = (key) => {
     setSort((current) => ({
@@ -368,7 +445,18 @@ function VacancyTracker() {
       </Shell>
       <Shell>
         <div className="p-5">
-          <SectionTitle icon={TrendingDown} title="جميع الوحدات الشاغرة" subtitle={`${nf.format(topVacantUnits.length)} وحدة بعد الاستبعاد`} />
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <SectionTitle icon={TrendingDown} title="جميع الوحدات الشاغرة" subtitle={`${nf.format(topVacantUnits.length)} وحدة بعد الاستبعاد`} />
+            <a
+              href={vacantUnitsSheetUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 border border-gold/25 bg-card-elevated px-4 py-2.5 text-sm font-extrabold text-gold-light transition hover:border-gold hover:bg-gold/10"
+            >
+              <ExternalLink className="h-4 w-4" />
+              فتح ملف جميع الوحدات الشاغرة
+            </a>
+          </div>
           <div className="mt-5 overflow-x-auto">
             <table className="data-table w-full min-w-[760px] border-separate border-spacing-y-2 text-sm">
               <colgroup>
@@ -452,17 +540,84 @@ function DashboardFooter() {
 
 export default function Dashboard() {
   const [filters, setFilters] = useState({ priority: "all", district: "كل", type: "كل" });
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState("");
+
+  const filteredBranches = useMemo(() => branches.filter((branch) => (
+    (filters.priority === "all" || branch.priority === filters.priority) &&
+    (filters.district === "كل" || branch.district === filters.district) &&
+    (filters.type === "كل" || branch.type === filters.type)
+  )), [filters]);
+
+  const filteredVacantUnits = useMemo(() => {
+    const branchNames = new Set(filteredBranches.map((branch) => branch.name));
+    return topVacantUnits.filter((unit) => branchNames.has(unit.branch));
+  }, [filteredBranches]);
+
+  const exportReportToPDF = async () => {
+    const element = document.getElementById("report-export-root");
+    if (!element || exporting) return;
+    setExporting(true);
+    setExportError("");
+    element.classList.add("pdf-export-mode");
+
+    try {
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      const canvas = await html2canvas(element, {
+        scale: 1.5,
+        useCORS: true,
+        backgroundColor: "#120c05",
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+        scrollX: 0,
+        scrollY: 0
+      });
+      const imgData = canvas.toDataURL("image/jpeg", 0.88);
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save("mathwa-vacancy-intelligence-report-q2-2026.pdf");
+    } catch (error) {
+      console.error("PDF export failed", error);
+      setExportError("تعذر تصدير التقرير. يرجى المحاولة مرة أخرى.");
+    } finally {
+      element.classList.remove("pdf-export-mode");
+      setExporting(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-espresso font-tajawal text-gold-light">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold to-transparent opacity-70" />
-      <DashboardHeader />
-      <HeroKPIBar />
-      <FiltersBar filters={filters} setFilters={setFilters} />
-      <BranchHeatmap filters={filters} />
-      <VacancyTracker />
-      <DistrictLeaderboard />
-      <DashboardFooter />
+      <div id="report-export-root">
+        <DashboardHeader onExport={exportReportToPDF} exporting={exporting} exportError={exportError} />
+        <HeroKPIBar />
+        <FiltersBar filters={filters} setFilters={setFilters} />
+        <ExecutiveAnalysis branchesView={filteredBranches} vacantUnitsView={filteredVacantUnits} />
+        <BranchHeatmap filteredBranches={filteredBranches} />
+        <VacancyTracker />
+        <DistrictLeaderboard />
+        <DashboardFooter />
+      </div>
     </main>
   );
 }

@@ -117,6 +117,54 @@ select {
   text-align: center;
 }
 
+#report-export-root {
+  width: 100%;
+  overflow: visible;
+}
+
+.pdf-export-mode,
+.pdf-export-mode * {
+  box-shadow: none !important;
+}
+
+.pdf-export-mode * {
+  background-color: transparent !important;
+  border-color: rgba(201, 169, 110, 0.22) !important;
+  color: #e8d4a8 !important;
+  text-decoration-color: #c9a96e !important;
+}
+
+.pdf-export-mode .card-shell {
+  background: rgba(201, 169, 110, 0.08) !important;
+}
+
+.pdf-export-mode .card-core {
+  background: #1a1208 !important;
+}
+
+.pdf-export-mode tr {
+  background: #2d1e10 !important;
+}
+
+.pdf-export-mode button,
+.pdf-export-mode a {
+  background: #c9a96e !important;
+  color: #0f0a06 !important;
+}
+
+.pdf-export-mode svg,
+.pdf-export-mode svg * {
+  color: inherit !important;
+}
+
+.pdf-export-mode .sticky {
+  position: static !important;
+}
+
+.pdf-export-mode [class~="overflow-x-auto"] {
+  overflow: visible !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
