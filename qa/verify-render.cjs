@@ -53,6 +53,13 @@ const { chromium } = require("playwright");
   await page.waitForTimeout(250);
   await page.screenshot({ path: "qa/mathwa-mobile.png", fullPage: true });
   const mobileHasHorizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 2);
+  const vacancyText = await page.locator("section:has-text('أطول ١٠ وحدات شاغرة')").textContent();
+  const fakeUnitCodes = ["SL-", "AR-", "NS-", "ML-", "MR-", "SH-", "NJ-", "NZ-", "DL-", "AZ-"].filter((code) =>
+    vacancyText.includes(code)
+  );
+  const mappedVacancyRowsPresent = ["مثوى 13", "13-1006", "مثوى 5", "05-052"].every((value) =>
+    vacancyText.includes(value)
+  );
 
   await browser.close();
 
@@ -64,6 +71,8 @@ const { chromium } = require("playwright");
     criticalRows,
     drawerVisible,
     mobileHasHorizontalOverflow,
+    fakeUnitCodes,
+    mappedVacancyRowsPresent,
     consoleMessages,
     pageErrors
   }, null, 2));
