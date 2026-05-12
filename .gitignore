@@ -1,0 +1,8 @@
+node_modules/
+dist/
+qa/*.png
+qa/*.log
+qa/*.out.log
+qa/*.err.log
+.vite/
+.DS_Store
