@@ -92,6 +92,29 @@ select {
 .numeric {
   direction: ltr;
   unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table {
+  width: 100%;
+  table-layout: fixed;
+  direction: rtl;
+}
+
+.data-table th,
+.data-table td {
+  text-align: center;
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+}
+
+.cell-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {

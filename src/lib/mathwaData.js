@@ -1,9 +1,9 @@
 export const portfolioKPIs = {
-  branches: 53,
-  units: 550,
+  branches: 47,
+  units: 542,
   vacant: 145,
-  occupancy: 0.736,
-  lostValue: 1751820,
+  occupancy: 0.732,
+  lostValue: 1751821,
   avgVacancyDays: 87
 };
 
@@ -22,6 +22,8 @@ export const actionLabels = {
   premium: "تسعير فاخر موجه",
   audit: "مراجعة تشغيلية"
 };
+
+export const excludedBranches = ["45", "54", "55", "56", "57"];
 
 export const branchDistrictMap = {
   "01": {
@@ -811,7 +813,7 @@ const branchSeed = [
     "استثمار",
     55,
     7,
-    0.8727272727272727,
+    0.8727272727272728,
     -58050,
     "audit",
     "Medium",
@@ -824,7 +826,7 @@ const branchSeed = [
     "ادارة و تشغيل",
     3,
     2,
-    0.3333333333333333,
+    0.33333333333333337,
     -6042,
     "reprice",
     "Critical",
@@ -928,7 +930,7 @@ const branchSeed = [
     "ادارة و تشغيل",
     3,
     1,
-    0.6666666666666666,
+    0.6666666666666667,
     0,
     "promote",
     "High",
@@ -941,7 +943,7 @@ const branchSeed = [
     "استثمار",
     12,
     4,
-    0.6666666666666666,
+    0.6666666666666667,
     -18004,
     "promote",
     "High",
@@ -969,7 +971,7 @@ const branchSeed = [
     5,
     0.8076923076923077,
     0,
-    "audit",
+    "hold",
     "Low",
     null
   ],
@@ -1039,19 +1041,6 @@ const branchSeed = [
     null
   ],
   [
-    "MTH-OFFICE",
-    "مكتب مثوى",
-    "الملقا",
-    "",
-    0,
-    0,
-    0,
-    0,
-    "hold",
-    "Low",
-    "الملقا"
-  ],
-  [
     "MTH-42",
     "مثوى 42",
     "العارض",
@@ -1060,7 +1049,7 @@ const branchSeed = [
     7,
     0.946969696969697,
     0,
-    "audit",
+    "hold",
     "Low",
     "العارض"
   ],
@@ -1073,7 +1062,7 @@ const branchSeed = [
     1,
     0.95,
     0,
-    "audit",
+    "hold",
     "Low",
     "التعاون"
   ],
@@ -1086,22 +1075,9 @@ const branchSeed = [
     1,
     0.75,
     0,
-    "audit",
+    "hold",
     "Low",
     "الياسمين"
-  ],
-  [
-    "MTH-45",
-    "مثوى 45",
-    "مطار الملك خالد الدولي",
-    "ادارة و تشغيل",
-    0,
-    0,
-    0.0,
-    0,
-    "audit",
-    "Low",
-    null
   ],
   [
     "MTH-47",
@@ -1110,9 +1086,9 @@ const branchSeed = [
     "ادارة و تشغيل",
     0,
     0,
-    0.0,
     0,
-    "audit",
+    0,
+    "hold",
     "Low",
     "النرجس"
   ],
@@ -1123,9 +1099,9 @@ const branchSeed = [
     "ادارة و تشغيل",
     0,
     0,
-    0.0,
     0,
-    "audit",
+    0,
+    "hold",
     "Low",
     "النرجس"
   ],
@@ -1175,7 +1151,7 @@ const branchSeed = [
     "استثمار",
     20,
     14,
-    0.3,
+    0.30000000000000004,
     0,
     "reprice",
     "Critical",
@@ -1190,7 +1166,7 @@ const branchSeed = [
     6,
     0.8125,
     0,
-    "audit",
+    "hold",
     "Low",
     "المروج"
   ],
@@ -1203,61 +1179,9 @@ const branchSeed = [
     6,
     0.8125,
     0,
-    "audit",
-    "Low",
-    "المروج"
-  ],
-  [
-    "MTH-54",
-    "مثوى 54",
-    "النزهة",
-    "",
-    0,
-    0,
-    0.0,
-    0,
-    "audit",
-    "Low",
-    "النزهة"
-  ],
-  [
-    "MTH-55",
-    "مثوى 55",
-    "حي السحمان",
-    "",
-    3,
-    0,
-    1.0,
-    0,
-    "audit",
-    "Low",
-    null
-  ],
-  [
-    "MTH-56",
-    "مثوى 56",
-    "حي السحمان",
-    "",
-    2,
-    0,
-    1.0,
-    0,
-    "audit",
-    "Low",
-    null
-  ],
-  [
-    "MTH-57",
-    "مثوى 57",
-    "حي السحمان",
-    "",
-    3,
-    0,
-    1.0,
-    0,
     "hold",
     "Low",
-    null
+    "المروج"
   ],
   [
     "MTH-02",
@@ -1266,7 +1190,7 @@ const branchSeed = [
     "ادارة و تشغيل",
     3,
     2,
-    0.3333333333333333,
+    0.33333333333333337,
     -3918,
     "reprice",
     "Critical",
@@ -1448,7 +1372,7 @@ const branchSeed = [
     "ادارة و تشغيل",
     3,
     1,
-    0.6666666666666666,
+    0.6666666666666667,
     -5333,
     "promote",
     "High",
@@ -1599,8 +1523,1229 @@ export const topVacantUnits = [
     "daysVacant": 194,
     "monthlyPrice": 4000,
     "lostValue": 25867
+  },
+  {
+    "branch": "مثوى 4",
+    "district": "العارض",
+    "unitId": "04-047",
+    "branchCode": "04",
+    "daysVacant": 189,
+    "monthlyPrice": 4000,
+    "lostValue": 25200
+  },
+  {
+    "branch": "مثوى 39",
+    "district": "النخيل",
+    "unitId": "39-173",
+    "branchCode": "39",
+    "daysVacant": 189,
+    "monthlyPrice": 4000,
+    "lostValue": 25200
+  },
+  {
+    "branch": "مثوى 2",
+    "district": "العارض",
+    "unitId": "02-038",
+    "branchCode": "02",
+    "daysVacant": 177,
+    "monthlyPrice": 4300,
+    "lostValue": 25370
+  },
+  {
+    "branch": "مثوى 24",
+    "district": "اليرموك",
+    "unitId": "24-120",
+    "branchCode": "24",
+    "daysVacant": 171,
+    "monthlyPrice": 4500,
+    "lostValue": 25650
+  },
+  {
+    "branch": "مثوى 25",
+    "district": "اليرموك",
+    "unitId": "25-124",
+    "branchCode": "25",
+    "daysVacant": 168,
+    "monthlyPrice": 3500,
+    "lostValue": 19600
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-229",
+    "branchCode": "38",
+    "daysVacant": 155,
+    "monthlyPrice": 5193,
+    "lostValue": 26830
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-216 (Airbnb)",
+    "branchCode": "38",
+    "daysVacant": 155,
+    "monthlyPrice": 5146,
+    "lostValue": 26588
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-101",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 6329,
+    "lostValue": 31856
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-123",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 3520,
+    "lostValue": 17717
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-122",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 3520,
+    "lostValue": 17717
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-102",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 6329,
+    "lostValue": 31856
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-114",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 3520,
+    "lostValue": 17717
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-112",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 4100,
+    "lostValue": 20637
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-113",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 3520,
+    "lostValue": 17717
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-111",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 3800,
+    "lostValue": 19127
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-202",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 6329,
+    "lostValue": 31856
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-214",
+    "branchCode": "51",
+    "daysVacant": 151,
+    "monthlyPrice": 3520,
+    "lostValue": 17717
+  },
+  {
+    "branch": "مثوى 9",
+    "district": "العارض",
+    "unitId": "09-069",
+    "branchCode": "09",
+    "daysVacant": 145,
+    "monthlyPrice": 3900,
+    "lostValue": 18850
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-236",
+    "branchCode": "38",
+    "daysVacant": 145,
+    "monthlyPrice": 5087,
+    "lostValue": 24587
+  },
+  {
+    "branch": "مثوى 1",
+    "district": "الملك فيصل",
+    "unitId": "01-010",
+    "branchCode": "01",
+    "daysVacant": 145,
+    "monthlyPrice": 3900,
+    "lostValue": 18850
+  },
+  {
+    "branch": "مثوى 28",
+    "district": "النرجس",
+    "unitId": "28-139",
+    "branchCode": "28",
+    "daysVacant": 138,
+    "monthlyPrice": 3900,
+    "lostValue": 17940
+  },
+  {
+    "branch": "مثوى 10",
+    "district": "العارض",
+    "unitId": "10-072",
+    "branchCode": "10",
+    "daysVacant": 138,
+    "monthlyPrice": 3200,
+    "lostValue": 14720
+  },
+  {
+    "branch": "مثوى 50",
+    "district": "النرجس",
+    "unitId": "50-005",
+    "branchCode": "50",
+    "daysVacant": 138,
+    "monthlyPrice": 2900,
+    "lostValue": 13340
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-208",
+    "branchCode": "38",
+    "daysVacant": 138,
+    "monthlyPrice": 5193,
+    "lostValue": 23888
+  },
+  {
+    "branch": "مثوى 6",
+    "district": "العارض",
+    "unitId": "06-055",
+    "branchCode": "06",
+    "daysVacant": 130,
+    "monthlyPrice": 2900,
+    "lostValue": 12567
+  },
+  {
+    "branch": "مثوى 25",
+    "district": "اليرموك",
+    "unitId": "25-125",
+    "branchCode": "25",
+    "daysVacant": 128,
+    "monthlyPrice": 2999,
+    "lostValue": 12796
+  },
+  {
+    "branch": "مثوى 44",
+    "district": "الياسمين",
+    "unitId": "44-002",
+    "branchCode": "44",
+    "daysVacant": 123,
+    "monthlyPrice": 3600,
+    "lostValue": 14760
+  },
+  {
+    "branch": "مثوى 53",
+    "district": "المروج",
+    "unitId": "53-005 (Unavailable)",
+    "branchCode": "53",
+    "daysVacant": 122,
+    "monthlyPrice": 3300,
+    "lostValue": 13420
+  },
+  {
+    "branch": "مثوى 32",
+    "district": "القيروان",
+    "unitId": "32-148",
+    "branchCode": "32",
+    "daysVacant": 121,
+    "monthlyPrice": 6200,
+    "lostValue": 25007
+  },
+  {
+    "branch": "مثوى 3",
+    "district": "العارض",
+    "unitId": "03-045",
+    "branchCode": "03",
+    "daysVacant": 118,
+    "monthlyPrice": 3200,
+    "lostValue": 12587
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-235",
+    "branchCode": "38",
+    "daysVacant": 118,
+    "monthlyPrice": 5261,
+    "lostValue": 20693
+  },
+  {
+    "branch": "مثوى 19",
+    "district": "الزهراء",
+    "unitId": "19-097",
+    "branchCode": "19",
+    "daysVacant": 118,
+    "monthlyPrice": 3000,
+    "lostValue": 11800
+  },
+  {
+    "branch": "مثوى 32",
+    "district": "القيروان",
+    "unitId": "32-149",
+    "branchCode": "32",
+    "daysVacant": 117,
+    "monthlyPrice": 4500,
+    "lostValue": 17550
+  },
+  {
+    "branch": "مثوى 18",
+    "district": "السليمانية",
+    "unitId": "18-096",
+    "branchCode": "18",
+    "daysVacant": 117,
+    "monthlyPrice": 3400,
+    "lostValue": 13260
+  },
+  {
+    "branch": "مثوى 32",
+    "district": "القيروان",
+    "unitId": "32-151",
+    "branchCode": "32",
+    "daysVacant": 117,
+    "monthlyPrice": 3700,
+    "lostValue": 14430
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-206 (Airbnb)",
+    "branchCode": "38",
+    "daysVacant": 114,
+    "monthlyPrice": 5431,
+    "lostValue": 20638
+  },
+  {
+    "branch": "مثوى 17",
+    "district": "الياسمين",
+    "unitId": "17-090",
+    "branchCode": "17",
+    "daysVacant": 114,
+    "monthlyPrice": 4500,
+    "lostValue": 17100
+  },
+  {
+    "branch": "مثوى 23",
+    "district": "اليرموك",
+    "unitId": "23-118",
+    "branchCode": "23",
+    "daysVacant": 114,
+    "monthlyPrice": 3200,
+    "lostValue": 12160
+  },
+  {
+    "branch": "مثوى 40",
+    "district": "حي الوادي",
+    "unitId": "40-183",
+    "branchCode": "40",
+    "daysVacant": 113,
+    "monthlyPrice": 4500,
+    "lostValue": 16950
+  },
+  {
+    "branch": "مثوى 20",
+    "district": "الزهراء",
+    "unitId": "20-101",
+    "branchCode": "20",
+    "daysVacant": 112,
+    "monthlyPrice": 3000,
+    "lostValue": 11200
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1014",
+    "branchCode": "13",
+    "daysVacant": 111,
+    "monthlyPrice": 7000,
+    "lostValue": 25900
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-211",
+    "branchCode": "38",
+    "daysVacant": 111,
+    "monthlyPrice": 5282,
+    "lostValue": 19543
+  },
+  {
+    "branch": "مثوى 1",
+    "district": "الملك فيصل",
+    "unitId": "01-016",
+    "branchCode": "01",
+    "daysVacant": 111,
+    "monthlyPrice": 3200,
+    "lostValue": 11840
+  },
+  {
+    "branch": "مثوى 8",
+    "district": "العارض",
+    "unitId": "08-066-B",
+    "branchCode": "08",
+    "daysVacant": 111,
+    "monthlyPrice": 1900,
+    "lostValue": 7030
+  },
+  {
+    "branch": "مثوى 6",
+    "district": "العارض",
+    "unitId": "06-058",
+    "branchCode": "06",
+    "daysVacant": 107,
+    "monthlyPrice": 3600,
+    "lostValue": 12840
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-205",
+    "branchCode": "38",
+    "daysVacant": 107,
+    "monthlyPrice": 5091,
+    "lostValue": 18158
+  },
+  {
+    "branch": "مثوى 5",
+    "district": "العارض",
+    "unitId": "05-053",
+    "branchCode": "05",
+    "daysVacant": 105,
+    "monthlyPrice": 3600,
+    "lostValue": 12600
+  },
+  {
+    "branch": "مثوى 10",
+    "district": "العارض",
+    "unitId": "10-070",
+    "branchCode": "10",
+    "daysVacant": 103,
+    "monthlyPrice": 3900,
+    "lostValue": 13390
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-220",
+    "branchCode": "38",
+    "daysVacant": 100,
+    "monthlyPrice": 4853,
+    "lostValue": 16177
+  },
+  {
+    "branch": "مثوى 49",
+    "district": "النرجس",
+    "unitId": "49-004",
+    "branchCode": "49",
+    "daysVacant": 99,
+    "monthlyPrice": 3200,
+    "lostValue": 10560
+  },
+  {
+    "branch": "مثوى 53",
+    "district": "المروج",
+    "unitId": "53-019",
+    "branchCode": "53",
+    "daysVacant": 99,
+    "monthlyPrice": 3080,
+    "lostValue": 10164
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1005",
+    "branchCode": "13",
+    "daysVacant": 94,
+    "monthlyPrice": 7600,
+    "lostValue": 23813
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-233",
+    "branchCode": "38",
+    "daysVacant": 94,
+    "monthlyPrice": 4785,
+    "lostValue": 14993
+  },
+  {
+    "branch": "مثوى 26",
+    "district": "النرجس",
+    "unitId": "26-130",
+    "branchCode": "26",
+    "daysVacant": 94,
+    "monthlyPrice": 4400,
+    "lostValue": 13787
+  },
+  {
+    "branch": "مثوى 28",
+    "district": "النرجس",
+    "unitId": "28-142",
+    "branchCode": "28",
+    "daysVacant": 89,
+    "monthlyPrice": 3600,
+    "lostValue": 10680
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-223",
+    "branchCode": "38",
+    "daysVacant": 87,
+    "monthlyPrice": 5087,
+    "lostValue": 14752
+  },
+  {
+    "branch": "مثوى 25",
+    "district": "اليرموك",
+    "unitId": "25-123",
+    "branchCode": "25",
+    "daysVacant": 87,
+    "monthlyPrice": 4500,
+    "lostValue": 13050
+  },
+  {
+    "branch": "مثوى 37",
+    "district": "العارض",
+    "unitId": "37-178",
+    "branchCode": "37",
+    "daysVacant": 87,
+    "monthlyPrice": 3600,
+    "lostValue": 10440
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-231",
+    "branchCode": "38",
+    "daysVacant": 85,
+    "monthlyPrice": 4441,
+    "lostValue": 12583
+  },
+  {
+    "branch": "مثوى 1",
+    "district": "الملك فيصل",
+    "unitId": "01-011",
+    "branchCode": "01",
+    "daysVacant": 83,
+    "monthlyPrice": 3200,
+    "lostValue": 8853
+  },
+  {
+    "branch": "مثوى 16",
+    "district": "الياسمين",
+    "unitId": "16-085",
+    "branchCode": "16",
+    "daysVacant": 79,
+    "monthlyPrice": 3800,
+    "lostValue": 10007
+  },
+  {
+    "branch": "مثوى 37",
+    "district": "العارض",
+    "unitId": "37-180",
+    "branchCode": "37",
+    "daysVacant": 75,
+    "monthlyPrice": 3200,
+    "lostValue": 8000
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-121",
+    "branchCode": "51",
+    "daysVacant": 75,
+    "monthlyPrice": 4100,
+    "lostValue": 10250
+  },
+  {
+    "branch": "مثوى 24",
+    "district": "اليرموك",
+    "unitId": "24-121",
+    "branchCode": "24",
+    "daysVacant": 74,
+    "monthlyPrice": 3500,
+    "lostValue": 8633
+  },
+  {
+    "branch": "مثوى 14",
+    "district": "الملقا",
+    "unitId": "14-077",
+    "branchCode": "14",
+    "daysVacant": 74,
+    "monthlyPrice": 3200,
+    "lostValue": 7893
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1024",
+    "branchCode": "13",
+    "daysVacant": 74,
+    "monthlyPrice": 6000,
+    "lostValue": 14800
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1008",
+    "branchCode": "13",
+    "daysVacant": 74,
+    "monthlyPrice": 7100,
+    "lostValue": 17513
+  },
+  {
+    "branch": "مثوى 7",
+    "district": "العارض",
+    "unitId": "07-062",
+    "branchCode": "07",
+    "daysVacant": 74,
+    "monthlyPrice": 3600,
+    "lostValue": 8880
+  },
+  {
+    "branch": "مثوى 1",
+    "district": "الملك فيصل",
+    "unitId": "01-017",
+    "branchCode": "01",
+    "daysVacant": 74,
+    "monthlyPrice": 3900,
+    "lostValue": 9620
+  },
+  {
+    "branch": "مثوى 1",
+    "district": "الملك فيصل",
+    "unitId": "01-015",
+    "branchCode": "01",
+    "daysVacant": 74,
+    "monthlyPrice": 3200,
+    "lostValue": 7893
+  },
+  {
+    "branch": "مثوى 5",
+    "district": "العارض",
+    "unitId": "05-050",
+    "branchCode": "05",
+    "daysVacant": 71,
+    "monthlyPrice": 2900,
+    "lostValue": 6863
+  },
+  {
+    "branch": "مثوى 17",
+    "district": "الياسمين",
+    "unitId": "17-089",
+    "branchCode": "17",
+    "daysVacant": 69,
+    "monthlyPrice": 4500,
+    "lostValue": 10350
+  },
+  {
+    "branch": "مثوى 26",
+    "district": "النرجس",
+    "unitId": "26-131",
+    "branchCode": "26",
+    "daysVacant": 62,
+    "monthlyPrice": 4400,
+    "lostValue": 9093
+  },
+  {
+    "branch": "مثوى 1",
+    "district": "الملك فيصل",
+    "unitId": "01-018",
+    "branchCode": "01",
+    "daysVacant": 62,
+    "monthlyPrice": 3900,
+    "lostValue": 8060
+  },
+  {
+    "branch": "مثوى 1",
+    "district": "الملك فيصل",
+    "unitId": "01-021",
+    "branchCode": "01",
+    "daysVacant": 62,
+    "monthlyPrice": 3200,
+    "lostValue": 6613
+  },
+  {
+    "branch": "مثوى 53",
+    "district": "المروج",
+    "unitId": "53-007",
+    "branchCode": "53",
+    "daysVacant": 62,
+    "monthlyPrice": 2860,
+    "lostValue": 5911
+  },
+  {
+    "branch": "مثوى 33",
+    "district": "العليا",
+    "unitId": "33-019",
+    "branchCode": "33",
+    "daysVacant": 59,
+    "monthlyPrice": 5920,
+    "lostValue": 11643
+  },
+  {
+    "branch": "مثوى 17",
+    "district": "الياسمين",
+    "unitId": "17-091",
+    "branchCode": "17",
+    "daysVacant": 55,
+    "monthlyPrice": 3800,
+    "lostValue": 6967
+  },
+  {
+    "branch": "مثوى 42",
+    "district": "العارض",
+    "unitId": "42-140-B",
+    "branchCode": "42",
+    "daysVacant": 53,
+    "monthlyPrice": 1900,
+    "lostValue": 3357
+  },
+  {
+    "branch": "مثوى 42",
+    "district": "العارض",
+    "unitId": "42-140-A",
+    "branchCode": "42",
+    "daysVacant": 53,
+    "monthlyPrice": 1900,
+    "lostValue": 3357
+  },
+  {
+    "branch": "مثوى 40",
+    "district": "حي الوادي",
+    "unitId": "40-184",
+    "branchCode": "40",
+    "daysVacant": 46,
+    "monthlyPrice": 4500,
+    "lostValue": 6900
+  },
+  {
+    "branch": "مثوى 33",
+    "district": "العليا",
+    "unitId": "33-016",
+    "branchCode": "33",
+    "daysVacant": 45,
+    "monthlyPrice": 6090,
+    "lostValue": 9135
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1016",
+    "branchCode": "13",
+    "daysVacant": 44,
+    "monthlyPrice": 7300,
+    "lostValue": 10707
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1011",
+    "branchCode": "13",
+    "daysVacant": 43,
+    "monthlyPrice": 7600,
+    "lostValue": 10893
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1015",
+    "branchCode": "13",
+    "daysVacant": 43,
+    "monthlyPrice": 7100,
+    "lostValue": 10177
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1030",
+    "branchCode": "13",
+    "daysVacant": 43,
+    "monthlyPrice": 7100,
+    "lostValue": 10177
+  },
+  {
+    "branch": "مثوى 29",
+    "district": "الندى",
+    "unitId": "29-135",
+    "branchCode": "29",
+    "daysVacant": 43,
+    "monthlyPrice": 3950,
+    "lostValue": 5662
+  },
+  {
+    "branch": "مثوى 49",
+    "district": "النرجس",
+    "unitId": "49-001",
+    "branchCode": "49",
+    "daysVacant": 42,
+    "monthlyPrice": 3900,
+    "lostValue": 5460
+  },
+  {
+    "branch": "مثوى 42",
+    "district": "العارض",
+    "unitId": "42-058-A",
+    "branchCode": "42",
+    "daysVacant": 42,
+    "monthlyPrice": 1950,
+    "lostValue": 2730
+  },
+  {
+    "branch": "مثوى 8",
+    "district": "العارض",
+    "unitId": "08-067",
+    "branchCode": "08",
+    "daysVacant": 41,
+    "monthlyPrice": 3600,
+    "lostValue": 4920
+  },
+  {
+    "branch": "مثوى 15",
+    "district": "الياسمين",
+    "unitId": "15-080",
+    "branchCode": "15",
+    "daysVacant": 39,
+    "monthlyPrice": 3750,
+    "lostValue": 4875
+  },
+  {
+    "branch": "مثوى 14",
+    "district": "الملقا",
+    "unitId": "14-076",
+    "branchCode": "14",
+    "daysVacant": 36,
+    "monthlyPrice": 4000,
+    "lostValue": 4800
+  },
+  {
+    "branch": "مثوى 31",
+    "district": "السلام",
+    "unitId": "31-168",
+    "branchCode": "31",
+    "daysVacant": 34,
+    "monthlyPrice": 3800,
+    "lostValue": 4307
+  },
+  {
+    "branch": "مثوى 34",
+    "district": "الملقا",
+    "unitId": "34-156",
+    "branchCode": "34",
+    "daysVacant": 33,
+    "monthlyPrice": 3200,
+    "lostValue": 3520
+  },
+  {
+    "branch": "مثوى 53",
+    "district": "المروج",
+    "unitId": "53-016",
+    "branchCode": "53",
+    "daysVacant": 31,
+    "monthlyPrice": 2750,
+    "lostValue": 2842
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-212",
+    "branchCode": "38",
+    "daysVacant": 28,
+    "monthlyPrice": 4570,
+    "lostValue": 4265
+  },
+  {
+    "branch": "مثوى 52",
+    "district": "المروج",
+    "unitId": "52-013",
+    "branchCode": "52",
+    "daysVacant": 28,
+    "monthlyPrice": 2900,
+    "lostValue": 2707
+  },
+  {
+    "branch": "مثوى 39",
+    "district": "النخيل",
+    "unitId": "39-175",
+    "branchCode": "39",
+    "daysVacant": 28,
+    "monthlyPrice": 4800,
+    "lostValue": 4480
+  },
+  {
+    "branch": "مثوى 39",
+    "district": "النخيل",
+    "unitId": "39-172",
+    "branchCode": "39",
+    "daysVacant": 28,
+    "monthlyPrice": 5500,
+    "lostValue": 5133
+  },
+  {
+    "branch": "مثوى 23",
+    "district": "اليرموك",
+    "unitId": "23-116",
+    "branchCode": "23",
+    "daysVacant": 28,
+    "monthlyPrice": 4500,
+    "lostValue": 4200
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-130",
+    "branchCode": "51",
+    "daysVacant": 26,
+    "monthlyPrice": 9492,
+    "lostValue": 8226
+  },
+  {
+    "branch": "مثوى 42",
+    "district": "العارض",
+    "unitId": "42-050",
+    "branchCode": "42",
+    "daysVacant": 26,
+    "monthlyPrice": 3900,
+    "lostValue": 3380
+  },
+  {
+    "branch": "مثوى 42",
+    "district": "العارض",
+    "unitId": "42-052",
+    "branchCode": "42",
+    "daysVacant": 25,
+    "monthlyPrice": 3200,
+    "lostValue": 2667
+  },
+  {
+    "branch": "مثوى 53",
+    "district": "المروج",
+    "unitId": "53-004",
+    "branchCode": "53",
+    "daysVacant": 23,
+    "monthlyPrice": 3300,
+    "lostValue": 2530
+  },
+  {
+    "branch": "مثوى 31",
+    "district": "السلام",
+    "unitId": "31-171",
+    "branchCode": "31",
+    "daysVacant": 23,
+    "monthlyPrice": 3700,
+    "lostValue": 2837
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1020",
+    "branchCode": "13",
+    "daysVacant": 22,
+    "monthlyPrice": 6700,
+    "lostValue": 4913
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1001",
+    "branchCode": "13",
+    "daysVacant": 21,
+    "monthlyPrice": 7200,
+    "lostValue": 5040
+  },
+  {
+    "branch": "مثوى 53",
+    "district": "المروج",
+    "unitId": "53-021",
+    "branchCode": "53",
+    "daysVacant": 20,
+    "monthlyPrice": 2640,
+    "lostValue": 1760
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-221",
+    "branchCode": "38",
+    "daysVacant": 20,
+    "monthlyPrice": 6150,
+    "lostValue": 4100
+  },
+  {
+    "branch": "مثوى 52",
+    "district": "المروج",
+    "unitId": "52-022",
+    "branchCode": "52",
+    "daysVacant": 19,
+    "monthlyPrice": 2200,
+    "lostValue": 1393
+  },
+  {
+    "branch": "مثوى 50",
+    "district": "النرجس",
+    "unitId": "50-003",
+    "branchCode": "50",
+    "daysVacant": 19,
+    "monthlyPrice": 3200,
+    "lostValue": 2027
+  },
+  {
+    "branch": "مثوى 18",
+    "district": "السليمانية",
+    "unitId": "18-095",
+    "branchCode": "18",
+    "daysVacant": 18,
+    "monthlyPrice": 3400,
+    "lostValue": 2040
+  },
+  {
+    "branch": "مثوى 31",
+    "district": "السلام",
+    "unitId": "31-160",
+    "branchCode": "31",
+    "daysVacant": 18,
+    "monthlyPrice": 4500,
+    "lostValue": 2700
+  },
+  {
+    "branch": "مثوى 52",
+    "district": "المروج",
+    "unitId": "52-023",
+    "branchCode": "52",
+    "daysVacant": 14,
+    "monthlyPrice": 2400,
+    "lostValue": 1120
+  },
+  {
+    "branch": "مثوى 37",
+    "district": "العارض",
+    "unitId": "37-177",
+    "branchCode": "37",
+    "daysVacant": 14,
+    "monthlyPrice": 3600,
+    "lostValue": 1680
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-213",
+    "branchCode": "51",
+    "daysVacant": 14,
+    "monthlyPrice": 3520,
+    "lostValue": 1643
+  },
+  {
+    "branch": "مثوى 51",
+    "district": "النرجس",
+    "unitId": "51-230",
+    "branchCode": "51",
+    "daysVacant": 13,
+    "monthlyPrice": 9492,
+    "lostValue": 4113
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1031",
+    "branchCode": "13",
+    "daysVacant": 12,
+    "monthlyPrice": 6700,
+    "lostValue": 2680
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-224",
+    "branchCode": "38",
+    "daysVacant": 12,
+    "monthlyPrice": 5108,
+    "lostValue": 2043
+  },
+  {
+    "branch": "مثوى 18",
+    "district": "السليمانية",
+    "unitId": "18-093",
+    "branchCode": "18",
+    "daysVacant": 12,
+    "monthlyPrice": 4400,
+    "lostValue": 1760
+  },
+  {
+    "branch": "مثوى 31",
+    "district": "السلام",
+    "unitId": "31-162",
+    "branchCode": "31",
+    "daysVacant": 12,
+    "monthlyPrice": 3050,
+    "lostValue": 1220
+  },
+  {
+    "branch": "مثوى 13",
+    "district": "العقيق",
+    "unitId": "13-1007",
+    "branchCode": "13",
+    "daysVacant": 12,
+    "monthlyPrice": 6000,
+    "lostValue": 2400
+  },
+  {
+    "branch": "مثوى 38",
+    "district": "السليمانية",
+    "unitId": "38-219",
+    "branchCode": "38",
+    "daysVacant": 8,
+    "monthlyPrice": 4638,
+    "lostValue": 1237
+  },
+  {
+    "branch": "مثوى 52",
+    "district": "المروج",
+    "unitId": "52-024",
+    "branchCode": "52",
+    "daysVacant": 7,
+    "monthlyPrice": 2200,
+    "lostValue": 513
+  },
+  {
+    "branch": "مثوى 5",
+    "district": "العارض",
+    "unitId": "05-054-B",
+    "branchCode": "05",
+    "daysVacant": 7,
+    "monthlyPrice": 4000,
+    "lostValue": 933
+  },
+  {
+    "branch": "مثوى 5",
+    "district": "العارض",
+    "unitId": "05-054-A",
+    "branchCode": "05",
+    "daysVacant": 7,
+    "monthlyPrice": 4000,
+    "lostValue": 933
+  },
+  {
+    "branch": "مثوى 29",
+    "district": "الندى",
+    "unitId": "29-136",
+    "branchCode": "29",
+    "daysVacant": 7,
+    "monthlyPrice": 3950,
+    "lostValue": 922
+  },
+  {
+    "branch": "مثوى 43",
+    "district": "التعاون",
+    "unitId": "43-107",
+    "branchCode": "43",
+    "daysVacant": 5,
+    "monthlyPrice": 10752,
+    "lostValue": 1792
+  },
+  {
+    "branch": "مثوى 52",
+    "district": "المروج",
+    "unitId": "52-008",
+    "branchCode": "52",
+    "daysVacant": 3,
+    "monthlyPrice": 2400,
+    "lostValue": 240
+  },
+  {
+    "branch": "مثوى 42",
+    "district": "العارض",
+    "unitId": "42-053-B",
+    "branchCode": "42",
+    "daysVacant": 2,
+    "monthlyPrice": 1850,
+    "lostValue": 123
+  },
+  {
+    "branch": "مثوى 33",
+    "district": "العليا",
+    "unitId": "33-003",
+    "branchCode": "33",
+    "daysVacant": 2,
+    "monthlyPrice": 7510,
+    "lostValue": 501
+  },
+  {
+    "branch": "مثوى 42",
+    "district": "العارض",
+    "unitId": "42-049",
+    "branchCode": "42",
+    "daysVacant": 1,
+    "monthlyPrice": 3900,
+    "lostValue": 130
+  },
+  {
+    "branch": "مثوى 52",
+    "district": "المروج",
+    "unitId": "52-029",
+    "branchCode": "52",
+    "daysVacant": 1,
+    "monthlyPrice": 2600,
+    "lostValue": 87
+  },
+  {
+    "branch": "مثوى 33",
+    "district": "العليا",
+    "unitId": "33-022",
+    "branchCode": "33",
+    "daysVacant": 0,
+    "monthlyPrice": 5790,
+    "lostValue": 0
+  },
+  {
+    "branch": "مثوى 33",
+    "district": "العليا",
+    "unitId": "33-007",
+    "branchCode": "33",
+    "daysVacant": 0,
+    "monthlyPrice": 6990,
+    "lostValue": 0
   }
 ].map((row) => enrichUnitWithBranch(row));
+
+export const vacancyBuckets = [
+  { name: "أقل من ٩٠ يوم", value: 81, color: "#95D5B2" },
+  { name: "٩٠-١٨٠ يوم", value: 52, color: "#FFD166" },
+  { name: "أكثر من ١٨٠ يوم", value: 12, color: "#FCA5A5" }
+];
 
 const districtNames = [
   "التعاون",
@@ -1617,12 +2762,9 @@ const districtNames = [
   "النخيل",
   "الندى",
   "النرجس",
-  "النزهة",
   "الياسمين",
   "اليرموك",
-  "حي السحمان",
-  "حي الوادي",
-  "مطار الملك خالد الدولي"
+  "حي الوادي"
 ];
 
 export const districtSummary = districtNames.map((district) => {

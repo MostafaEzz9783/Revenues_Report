@@ -1,18 +1,13 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import {
-  Bar,
-  BarChart,
   Cell,
   Pie,
   PieChart,
   ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
+  Tooltip
 } from "recharts";
 import {
   ArrowDownUp,
-  BarChart3,
   Building2,
   ChevronDown,
   Download,
@@ -20,10 +15,8 @@ import {
   Home,
   Layers3,
   MapPin,
-  PanelRightClose,
   SearchCheck,
   ShieldAlert,
-  Sparkles,
   TrendingDown,
   X
 } from "lucide-react";
@@ -33,10 +26,10 @@ import {
   actionLabels,
   branches,
   districtSummary,
-  marketData,
   portfolioKPIs,
   priorityConfig,
-  topVacantUnits
+  topVacantUnits,
+  vacancyBuckets
 } from "../lib/mathwaData";
 
 const nf = new Intl.NumberFormat("ar-SA");
@@ -44,14 +37,14 @@ const compact = new Intl.NumberFormat("ar-SA", { notation: "compact", maximumFra
 const sar = new Intl.NumberFormat("ar-SA", { maximumFractionDigits: 0 });
 
 const priorityOptions = [
-  { value: "all", label: "كل" },
-  { value: "Critical", label: "حرج" },
-  { value: "High", label: "مرتفع" },
-  { value: "Medium", label: "متوسط" },
-  { value: "Low", label: "منخفض" }
+  { value: "all", label: "ÙƒÙ„" },
+  { value: "Critical", label: "Ø­Ø±Ø¬" },
+  { value: "High", label: "Ù…Ø±ØªÙØ¹" },
+  { value: "Medium", label: "Ù…ØªÙˆØ³Ø·" },
+  { value: "Low", label: "Ù…Ù†Ø®ÙØ¶" }
 ];
 
-const typeOptions = ["كل", "استثمار", "ادارة وتشغيل", "تنفيذي فاخر"];
+const typeOptions = ["ÙƒÙ„", "Ø§Ø³ØªØ«Ù…Ø§Ø±", "Ø§Ø¯Ø§Ø±Ø© ÙˆØªØ´ØºÙŠÙ„", "ØªÙ†ÙÙŠØ°ÙŠ ÙØ§Ø®Ø±"];
 
 function DashboardHeader() {
   return (
@@ -61,15 +54,15 @@ function DashboardHeader() {
           <Home className="h-7 w-7 text-gold-light" strokeWidth={1.6} />
         </div>
         <div>
-          <h1 className="text-3xl font-extrabold tracking-normal text-gold-light md:text-5xl">Mathwa <span className="text-gold">مثوى</span></h1>
-          <p className="mt-2 text-sm font-medium text-gold-light/62">لوحة استخبارات الشواغر والسوق العقاري</p>
+          <h1 className="text-3xl font-extrabold tracking-normal text-gold-light md:text-5xl">Mathwa <span className="text-gold">Ù…Ø«ÙˆÙ‰</span></h1>
+          <p className="mt-2 text-sm font-medium text-gold-light/62">Ù„ÙˆØ­Ø© Ø§Ø³ØªØ®Ø¨Ø§Ø±Ø§Øª Ø§Ù„Ø´ÙˆØ§ØºØ± ÙˆØ§Ù„Ø³ÙˆÙ‚ Ø§Ù„Ø¹Ù‚Ø§Ø±ÙŠ</p>
         </div>
       </div>
       <div className="flex flex-wrap items-center gap-3 text-sm">
-        <span className="border border-gold/20 bg-card-bg px-4 py-3 text-gold-light/75">الفترة: الربع الثاني ٢٠٢٦</span>
+        <span className="border border-gold/20 bg-card-bg px-4 py-3 text-gold-light/75">Ø§Ù„ÙØªØ±Ø©: Ø§Ù„Ø±Ø¨Ø¹ Ø§Ù„Ø«Ø§Ù†ÙŠ Ù¢Ù Ù¢Ù¦</span>
         <button className="inline-flex items-center gap-2 bg-gold px-4 py-3 font-bold text-espresso transition hover:bg-gold-light">
           <Download className="h-4 w-4" />
-          تصدير التقرير
+          ØªØµØ¯ÙŠØ± Ø§Ù„ØªÙ‚Ø±ÙŠØ±
         </button>
       </div>
     </header>
@@ -115,17 +108,17 @@ function KPICard({ icon: Icon, label, target, suffix = "", mode = "number", note
 function HeroKPIBar() {
   return (
     <section className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-4 px-4 md:grid-cols-5 md:px-6">
-      <KPICard icon={Building2} label="الفروع" target={portfolioKPIs.branches} note="BR" />
-      <KPICard icon={Layers3} label="الوحدات" target={portfolioKPIs.units} note="UNITS" />
-      <KPICard icon={TrendingDown} label="الشواغر" target={portfolioKPIs.vacant} note="VAC" />
-      <KPICard icon={Gauge} label="الإشغال" target={portfolioKPIs.occupancy * 100} mode="percent" note="OCC" />
-      <KPICard icon={ShieldAlert} label="قيمة مفقودة" target={portfolioKPIs.lostValue} mode="money" suffix=" ر.س" note="LOSS" />
+      <KPICard icon={Building2} label="Ø§Ù„ÙØ±ÙˆØ¹" target={portfolioKPIs.branches} note="BR" />
+      <KPICard icon={Layers3} label="Ø§Ù„ÙˆØ­Ø¯Ø§Øª" target={portfolioKPIs.units} note="UNITS" />
+      <KPICard icon={TrendingDown} label="Ø§Ù„Ø´ÙˆØ§ØºØ±" target={portfolioKPIs.vacant} note="VAC" />
+      <KPICard icon={Gauge} label="Ø§Ù„Ø¥Ø´ØºØ§Ù„" target={portfolioKPIs.occupancy * 100} mode="percent" note="OCC" />
+      <KPICard icon={ShieldAlert} label="Ù‚ÙŠÙ…Ø© Ù…ÙÙ‚ÙˆØ¯Ø©" target={portfolioKPIs.lostValue} mode="money" suffix=" Ø±.Ø³" note="LOSS" />
     </section>
   );
 }
 
 function FiltersBar({ filters, setFilters }) {
-  const districts = useMemo(() => ["كل", ...new Set(branches.map((branch) => branch.district))], []);
+  const districts = useMemo(() => ["ÙƒÙ„", ...new Set(branches.map((branch) => branch.district))], []);
   return (
     <section className="sticky top-0 z-30 mt-8 border-y border-gold/10 bg-espresso/82 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-6">
@@ -173,7 +166,7 @@ function OccupancyBar({ value, wide = false }) {
       <div className="h-2 flex-1 bg-espresso">
         <div className="h-full transition-all" style={{ width: `${Math.round(value * 100)}%`, backgroundColor: color }} />
       </div>
-      <span className="numeric w-12 text-left font-mono text-xs" style={{ color }}>{nf.format(Math.round(value * 100))}%</span>
+      <span className="numeric w-12 text-center font-mono text-xs" style={{ color }}>{nf.format(Math.round(value * 100))}%</span>
     </div>
   );
 }
@@ -189,11 +182,10 @@ function PriorityBadge({ priority }) {
 
 function BranchDrawer({ branch, onClose }) {
   if (!branch) return null;
-  const market = branch.market_district ? marketData[branch.market_district] : null;
 
   return (
     <div className="fixed inset-0 z-50">
-      <button aria-label="إغلاق" className="absolute inset-0 bg-black/62 backdrop-blur-sm" onClick={onClose} />
+      <button aria-label="Ø¥ØºÙ„Ø§Ù‚" className="absolute inset-0 bg-black/62 backdrop-blur-sm" onClick={onClose} />
       <aside className="absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto border-l border-gold/20 bg-card-bg p-6 shadow-2xl">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -206,54 +198,27 @@ function BranchDrawer({ branch, onClose }) {
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3">
-          <Info label="النوع" value={branch.type} />
-          <Info label="الأولوية" value={<PriorityBadge priority={branch.priority} />} />
-          <Info label="الوحدات" value={nf.format(branch.units)} />
-          <Info label="الشاغرة" value={nf.format(branch.vacant)} danger={branch.vacant > 0} />
+          <Info label="Ø§Ù„Ù†ÙˆØ¹" value={branch.type} />
+          <Info label="Ø§Ù„Ø£ÙˆÙ„ÙˆÙŠØ©" value={<PriorityBadge priority={branch.priority} />} />
+          <Info label="Ø§Ù„ÙˆØ­Ø¯Ø§Øª" value={nf.format(branch.units)} />
+          <Info label="Ø§Ù„Ø´Ø§ØºØ±Ø©" value={nf.format(branch.vacant)} danger={branch.vacant > 0} />
         </div>
 
         <div className="mt-6 border border-gold/12 bg-espresso/50 p-4">
-          <p className="mb-3 text-sm font-bold text-gold-light/70">مؤشر الإشغال</p>
+          <p className="mb-3 text-sm font-bold text-gold-light/70">Ù…Ø¤Ø´Ø± Ø§Ù„Ø¥Ø´ØºØ§Ù„</p>
           <OccupancyBar value={branch.occupancy} wide />
         </div>
 
         <div className="mt-6 border border-gold/12 bg-card-elevated p-4">
-          <p className="text-sm font-bold text-gold-light/70">الإجراء المقترح</p>
+          <p className="text-sm font-bold text-gold-light/70">Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ Ø§Ù„Ù…Ù‚ØªØ±Ø­</p>
           <p className="mt-2 text-lg font-extrabold text-gold-light">{actionLabels[branch.action]}</p>
         </div>
 
-        <div className="mt-6">
-          <h3 className="text-lg font-extrabold text-gold-light">مقارنة السوق</h3>
-          {market ? (
-            <table className="mt-3 w-full border-separate border-spacing-y-2 text-sm">
-              <thead className="text-gold-light/55">
-                <tr>
-                  <th className="text-right">النمط</th>
-                  <th className="text-right">وسيط السوق</th>
-                  <th className="text-right">نطاق مثوى ×١.٣٠</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(market).map(([unit, stats]) => (
-                  <tr key={unit} className="bg-espresso/55">
-                    <td className="p-3 font-mono text-gold">{unit}</td>
-                    <td className="p-3 font-mono text-gold-light">{sar.format(stats.median)} ر.س</td>
-                    <td className="p-3 font-mono text-success-light">{sar.format(stats.median * 1.18)} - {sar.format(stats.median * 1.3)} ر.س</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <div className="mt-3 border border-warning/30 bg-warning/10 p-4 text-sm text-warning-light">
-              لا توجد عينة سوقية كافية لهذا الحي ضمن Bayut.sa. يوصى بتسعير محافظ مع مراجعة أسبوعية.
-            </div>
-          )}
-        </div>
 
         <div className="mt-6 border-t border-gold/10 pt-5">
-          <p className="text-sm text-gold-light/60">الأثر الربحي</p>
+          <p className="text-sm text-gold-light/60">Ø§Ù„Ø£Ø«Ø± Ø§Ù„Ø±Ø¨Ø­ÙŠ</p>
           <p className={`numeric mt-1 font-playfair text-3xl italic ${branch.profit >= 0 ? "text-success-light" : "text-danger-light"}`}>
-            {sar.format(branch.profit)} ر.س
+            {sar.format(branch.profit)} Ø±.Ø³
           </p>
         </div>
       </aside>
@@ -278,8 +243,8 @@ function BranchHeatmap({ filters }) {
   const filtered = useMemo(() => {
     const rows = branches.filter((branch) => (
       (filters.priority === "all" || branch.priority === filters.priority) &&
-      (filters.district === "كل" || branch.district === filters.district) &&
-      (filters.type === "كل" || branch.type === filters.type)
+      (filters.district === "ÙƒÙ„" || branch.district === filters.district) &&
+      (filters.type === "ÙƒÙ„" || branch.type === filters.type)
     ));
     return [...rows].sort((a, b) => {
       const av = a[sort.key];
@@ -297,52 +262,56 @@ function BranchHeatmap({ filters }) {
   };
 
   const headers = [
-    ["name", "الفرع"],
-    ["district", "الحي"],
-    ["type", "النوع"],
-    ["units", "الوحدات"],
-    ["vacant", "الشاغرة"],
-    ["occupancy", "الإشغال"],
-    ["priority", "الأولوية"]
+    ["name", "Ø§Ù„ÙØ±Ø¹"],
+    ["district", "Ø§Ù„Ø­ÙŠ"],
+    ["type", "Ø§Ù„Ù†ÙˆØ¹"],
+    ["units", "Ø§Ù„ÙˆØ­Ø¯Ø§Øª"],
+    ["vacant", "Ø§Ù„Ø´Ø§ØºØ±Ø©"],
+    ["occupancy", "Ø§Ù„Ø¥Ø´ØºØ§Ù„"],
+    ["priority", "Ø§Ù„Ø£ÙˆÙ„ÙˆÙŠØ©"]
   ];
 
   return (
     <section ref={revealRef} className="mx-auto mt-8 w-full max-w-7xl px-4 md:px-6">
       <Shell>
         <div className="p-4 md:p-6">
-          <SectionTitle icon={ArrowDownUp} title="خريطة الفروع الحرارية" subtitle={`${nf.format(filtered.length)} فرع ضمن التصفية الحالية`} />
+          <SectionTitle icon={ArrowDownUp} title="Ø®Ø±ÙŠØ·Ø© Ø§Ù„ÙØ±ÙˆØ¹ Ø§Ù„Ø­Ø±Ø§Ø±ÙŠØ©" subtitle={`${nf.format(filtered.length)} ÙØ±Ø¹ Ø¶Ù…Ù† Ø§Ù„ØªØµÙÙŠØ© Ø§Ù„Ø­Ø§Ù„ÙŠØ©`} />
           <div className="mt-5 overflow-x-auto">
-            <table className="w-full min-w-[980px] border-separate border-spacing-y-2 text-sm">
+            <table className="data-table w-full min-w-[1040px] border-separate border-spacing-y-2 text-sm">
+              <colgroup>
+                <col className="w-[170px]" />
+                <col className="w-[120px]" />
+                <col className="w-[130px]" />
+                <col className="w-[90px]" />
+                <col className="w-[90px]" />
+                <col className="w-[150px]" />
+                <col className="w-[110px]" />
+                <col className="w-[150px]" />
+              </colgroup>
               <thead className="text-gold-light/58">
                 <tr>
                   {headers.map(([key, label]) => (
-                    <th key={key} className="px-3 py-2 text-right">
-                      <button className="inline-flex items-center gap-2 font-bold" onClick={() => setSortKey(key)}>
+                    <th key={key} className="px-3 py-2 text-center">
+                      <button className="inline-flex w-full items-center justify-center gap-2 font-bold" onClick={() => setSortKey(key)}>
                         {label}
                         <ChevronDown className={`h-3.5 w-3.5 transition ${sort.key === key && sort.direction === "asc" ? "rotate-180" : ""}`} />
                       </button>
                     </th>
                   ))}
-                  <th className="px-3 py-2 text-right">الإجراء</th>
-                  <th className="px-3 py-2 text-right">السوق</th>
+                  <th className="px-3 py-2 text-center">Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡</th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.map((branch) => (
                   <tr key={branch.id} onClick={() => setSelected(branch)} className="cursor-pointer bg-card-elevated/64 text-gold-light transition hover:bg-[#392513]">
-                    <td className="p-3 font-extrabold">{branch.name}</td>
-                    <td className="p-3 text-gold-light/72">{branch.district}</td>
-                    <td className="p-3 text-gold-light/72">{branch.type}</td>
-                    <td className="numeric p-3 font-mono">{nf.format(branch.units)}</td>
-                    <td className={`numeric p-3 font-mono font-bold ${branch.vacant > 0 ? "text-danger-light" : "text-success-light"}`}>{nf.format(branch.vacant)}</td>
-                    <td className="p-3"><OccupancyBar value={branch.occupancy} /></td>
-                    <td className="p-3"><PriorityBadge priority={branch.priority} /></td>
-                    <td className="p-3 text-gold">{actionLabels[branch.action]}</td>
-                    <td className="p-3">
-                      <span className={branch.market_district ? "text-success-light" : "text-gold-dim"}>
-                        {branch.market_district ? "متوفر" : "غير متوفر"}
-                      </span>
-                    </td>
+                    <td className="p-3 font-extrabold"><div className="cell-center">{branch.name}</div></td>
+                    <td className="p-3 text-gold-light/72"><div className="cell-center">{branch.district}</div></td>
+                    <td className="p-3 text-gold-light/72"><div className="cell-center">{branch.type}</div></td>
+                    <td className="numeric p-3 font-mono"><div className="cell-center">{nf.format(branch.units)}</div></td>
+                    <td className={`numeric p-3 font-mono font-bold ${branch.vacant > 0 ? "text-danger-light" : "text-success-light"}`}><div className="cell-center">{nf.format(branch.vacant)}</div></td>
+                    <td className="p-3"><div className="cell-center"><OccupancyBar value={branch.occupancy} /></div></td>
+                    <td className="p-3"><div className="cell-center"><PriorityBadge priority={branch.priority} /></div></td>
+                    <td className="p-3 text-gold"><div className="cell-center">{actionLabels[branch.action]}</div></td>
                   </tr>
                 ))}
               </tbody>
@@ -369,102 +338,16 @@ function SectionTitle({ icon: Icon, title, subtitle }) {
   );
 }
 
-function MarketBenchmark() {
-  const revealRef = useReveal();
-  const chartData = Object.entries(marketData).map(([district, data]) => ({
-    district,
-    studio: data.studio.median,
-    "1BR": data["1BR"].median,
-    "2BR": data["2BR"].median,
-    branchCount: branches.filter((branch) => branch.district === district).length
-  }));
-
-  return (
-    <section ref={revealRef} className="mx-auto mt-8 w-full max-w-7xl px-4 md:px-6">
-      <Shell>
-        <div className="p-4 md:p-6">
-          <SectionTitle icon={BarChart3} title="معيار السوق" subtitle="وسيط أسعار Bayut.sa حسب الحي ونمط الوحدة" />
-          <div className="mt-5 border border-gold/12 bg-gold/10 p-4 text-sm font-bold text-gold-light">
-            إشعار تشغيلي: نطاقات مثوى تشمل الخدمة الشاملة، التجهيز، وإدارة التشغيل؛ لذلك يتم اختبار الحد الأعلى عند معامل ×١.٣٠ مقابل وسيط السوق.
-          </div>
-          <div className="mt-6 h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                <XAxis dataKey="district" tick={{ fill: "#E8D4A8", fontSize: 12 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: "#6B5430", fontSize: 12 }} axisLine={false} tickLine={false} />
-                <Tooltip content={<MarketTooltip />} cursor={{ fill: "rgba(201,169,110,0.08)" }} />
-                <Bar dataKey="studio" name="Studio" fill="#6B5430" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="1BR" name="1BR" fill="#C9A96E" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="2BR" name="2BR" fill="#E8D4A8" radius={[3, 3, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <MarketTable rows={chartData} />
-        </div>
-      </Shell>
-    </section>
-  );
-}
-
-function MarketTooltip({ active, payload, label }) {
-  if (!active || !payload?.length) return null;
-  return (
-    <div className="border border-gold/25 bg-espresso p-3 text-sm shadow-gold">
-      <p className="mb-2 font-extrabold text-gold-light">{label}</p>
-      {payload.map((item) => (
-        <p key={item.dataKey} className="font-mono" style={{ color: item.color }}>{item.name}: {sar.format(item.value)} ر.س</p>
-      ))}
-    </div>
-  );
-}
-
-function MarketTable({ rows }) {
-  return (
-    <div className="mt-6 overflow-x-auto">
-      <table className="w-full min-w-[760px] border-separate border-spacing-y-2 text-sm">
-        <thead className="text-gold-light/55">
-          <tr>
-            <th className="p-2 text-right">الحي</th>
-            <th className="p-2 text-right">Studio</th>
-            <th className="p-2 text-right">1BR</th>
-            <th className="p-2 text-right">2BR</th>
-            <th className="p-2 text-right">الفروع</th>
-            <th className="p-2 text-right">التقييم</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => {
-            const assessment = row["1BR"] >= 5500 ? ["سوق قوي", "text-success-light"] : row["1BR"] >= 4300 ? ["تنافسي", "text-warning-light"] : ["سوق ضعيف", "text-danger-light"];
-            return (
-              <tr key={row.district} className="bg-card-elevated/65">
-                <td className="p-3 font-extrabold text-gold-light">{row.district}</td>
-                <td className="numeric p-3 font-mono">{sar.format(row.studio)} ر.س</td>
-                <td className="numeric p-3 font-mono">{sar.format(row["1BR"])} ر.س</td>
-                <td className="numeric p-3 font-mono">{sar.format(row["2BR"])} ر.س</td>
-                <td className="numeric p-3 font-mono">{nf.format(row.branchCount)}</td>
-                <td className={`p-3 font-extrabold ${assessment[1]}`}>{assessment[0]}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 function VacancyTracker() {
   const revealRef = useReveal();
-  const data = [
-    { name: "أقل من ٩٠ يوم", value: 62, color: "#95D5B2" },
-    { name: "٩٠-١٨٠ يوم", value: 43, color: "#FFD166" },
-    { name: "أكثر من ١٨٠ يوم", value: 38, color: "#FCA5A5" }
-  ];
+  const data = vacancyBuckets;
 
   return (
     <section ref={revealRef} className="mx-auto mt-8 grid w-full max-w-7xl grid-cols-1 gap-4 px-4 lg:grid-cols-[0.85fr_1.15fr] md:px-6">
       <Shell>
         <div className="p-5">
-          <SectionTitle icon={SearchCheck} title="تتبع الشواغر" subtitle="توزيع مدة الشغور" />
+          <SectionTitle icon={SearchCheck} title="ØªØªØ¨Ø¹ Ø§Ù„Ø´ÙˆØ§ØºØ±" subtitle="ØªÙˆØ²ÙŠØ¹ Ù…Ø¯Ø© Ø§Ù„Ø´ØºÙˆØ±" />
           <div className="relative mt-6 h-72">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -476,8 +359,8 @@ function VacancyTracker() {
             </ResponsiveContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center">
               <div className="text-center">
-                <p className="numeric font-playfair text-4xl italic text-gold-light">١٤٣</p>
-                <p className="text-sm font-bold text-gold-light/60">وحدة</p>
+                <p className="numeric font-playfair text-4xl italic text-gold-light">{nf.format(portfolioKPIs.vacant)}</p>
+                <p className="text-sm font-bold text-gold-light/60">ÙˆØ­Ø¯Ø©</p>
               </div>
             </div>
           </div>
@@ -485,26 +368,33 @@ function VacancyTracker() {
       </Shell>
       <Shell>
         <div className="p-5">
-          <SectionTitle icon={TrendingDown} title="أطول ١٠ وحدات شاغرة" subtitle="الأولوية للمعالجة السعرية والتشغيلية" />
+          <SectionTitle icon={TrendingDown} title="جميع الوحدات الشاغرة" subtitle={`${nf.format(topVacantUnits.length)} وحدة بعد الاستبعاد`} />
           <div className="mt-5 overflow-x-auto">
-            <table className="w-full min-w-[620px] border-separate border-spacing-y-2 text-sm">
+            <table className="data-table w-full min-w-[760px] border-separate border-spacing-y-2 text-sm">
+              <colgroup>
+                <col className="w-[150px]" />
+                <col className="w-[150px]" />
+                <col className="w-[100px]" />
+                <col className="w-[150px]" />
+                <col className="w-[150px]" />
+              </colgroup>
               <thead className="text-gold-light/55">
                 <tr>
-                  <th className="p-2 text-right">الفرع</th>
-                  <th className="p-2 text-right">الوحدة</th>
-                  <th className="p-2 text-right">الأيام</th>
-                  <th className="p-2 text-right">السعر الشهري</th>
-                  <th className="p-2 text-right">الفاقد</th>
+                  <th className="p-2 text-center">Ø§Ù„ÙØ±Ø¹</th>
+                  <th className="p-2 text-center">Ø§Ù„ÙˆØ­Ø¯Ø©</th>
+                  <th className="p-2 text-center">Ø§Ù„Ø£ÙŠØ§Ù…</th>
+                  <th className="p-2 text-center">Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø´Ù‡Ø±ÙŠ</th>
+                  <th className="p-2 text-center">Ø§Ù„ÙØ§Ù‚Ø¯</th>
                 </tr>
               </thead>
               <tbody>
                 {topVacantUnits.map((unit) => (
                   <tr key={unit.unitId} className={`${unit.daysVacant > 365 ? "bg-danger/20" : unit.daysVacant >= 180 ? "bg-warning/16" : "bg-card-elevated/70"}`}>
-                    <td className="p-3 font-bold text-gold-light">{unit.branch}</td>
-                    <td className="numeric p-3 font-mono text-gold">{unit.unitId}</td>
-                    <td className="numeric p-3 font-mono text-danger-light">{nf.format(unit.daysVacant)}</td>
-                    <td className="numeric p-3 font-mono">{sar.format(unit.monthlyPrice)} ر.س</td>
-                    <td className="numeric p-3 font-mono text-danger-light">{sar.format(unit.lostValue)} ر.س</td>
+                    <td className="p-3 font-bold text-gold-light"><div className="cell-center">{unit.branch}</div></td>
+                    <td className="numeric p-3 font-mono text-gold"><div className="cell-center">{unit.unitId}</div></td>
+                    <td className="numeric p-3 font-mono text-danger-light"><div className="cell-center">{nf.format(unit.daysVacant)}</div></td>
+                    <td className="numeric p-3 font-mono"><div className="cell-center">{sar.format(unit.monthlyPrice)} ر.س</div></td>
+                    <td className="numeric p-3 font-mono text-danger-light"><div className="cell-center">{sar.format(unit.lostValue)} ر.س</div></td>
                   </tr>
                 ))}
               </tbody>
@@ -533,19 +423,16 @@ function DistrictLeaderboard() {
     <section ref={revealRef} className="mx-auto mt-8 w-full max-w-7xl px-4 md:px-6">
       <Shell>
         <div className="p-5 md:p-6">
-          <SectionTitle icon={MapPin} title="ترتيب الأحياء" subtitle="٢٠ حي مرتبة حسب متوسط الإشغال" />
+          <SectionTitle icon={MapPin} title="ØªØ±ØªÙŠØ¨ Ø§Ù„Ø£Ø­ÙŠØ§Ø¡" subtitle="Ù¢Ù  Ø­ÙŠ Ù…Ø±ØªØ¨Ø© Ø­Ø³Ø¨ Ù…ØªÙˆØ³Ø· Ø§Ù„Ø¥Ø´ØºØ§Ù„" />
           <div className="mt-5 space-y-2">
             {rows.map((row, index) => (
-              <div key={row.district} className="grid grid-cols-[3rem_1fr] gap-3 border border-gold/10 bg-card-elevated/58 p-3 md:grid-cols-[3rem_10rem_1fr_8rem_7rem_6rem] md:items-center">
-                <div className="text-center text-lg font-extrabold text-gold-light">{index < 3 ? ["🥇", "🥈", "🥉"][index] : nf.format(index + 1)}</div>
+              <div key={row.district} className="grid grid-cols-[3rem_1fr] gap-3 border border-gold/10 bg-card-elevated/58 p-3 md:grid-cols-[3rem_10rem_1fr_8rem_7rem] md:items-center">
+                <div className="text-center text-lg font-extrabold text-gold-light">{index < 3 ? ["ðŸ¥‡", "ðŸ¥ˆ", "ðŸ¥‰"][index] : nf.format(index + 1)}</div>
                 <div className="font-extrabold text-gold-light">{row.district}</div>
                 <OccupancyBar value={row.avgOccupancy} wide />
-                <div className="numeric font-mono text-sm text-gold-light/80">{nf.format(row.vacant)} شاغرة</div>
-                <div>{row.criticalCount > 0 && <span className="bg-danger/25 px-3 py-1 text-xs font-bold text-danger-light">{nf.format(row.criticalCount)} حرج</span>}</div>
-                <div className="flex items-center gap-2 text-xs font-bold text-gold-light/62">
-                  <span className={row.hasMarketData ? "text-success-light" : "text-gold-dim"}>{row.hasMarketData ? "●" : "○"}</span>
-                  {nf.format(row.branchCount)} فروع
-                </div>
+                <div className="numeric font-mono text-sm text-gold-light/80">{nf.format(row.vacant)} Ø´Ø§ØºØ±Ø©</div>
+                <div>{row.criticalCount > 0 && <span className="bg-danger/25 px-3 py-1 text-xs font-bold text-danger-light">{nf.format(row.criticalCount)} Ø­Ø±Ø¬</span>}</div>
+                <div className="text-center text-xs font-bold text-gold-light/62">{nf.format(row.branchCount)} ÙØ±ÙˆØ¹</div>
               </div>
             ))}
           </div>
@@ -558,13 +445,13 @@ function DistrictLeaderboard() {
 function DashboardFooter() {
   return (
     <footer className="mx-auto max-w-7xl px-4 py-10 text-center text-sm text-gold-light/45 md:px-6">
-      مصادر البيانات: ملفات محفظة مثوى التشغيلية، عينات أسعار Bayut.sa للأحياء المتاحة، وحسابات الفاقد الداخلي. جميع البيانات مضمنة محليا دون أي طلبات خارجية.
+      مصادر البيانات: ملف محفظة مثوى التشغيلي وحسابات الشواغر والفقد الداخلي. جميع البيانات مضمنة محليا دون أي طلبات خارجية.
     </footer>
   );
 }
 
 export default function Dashboard() {
-  const [filters, setFilters] = useState({ priority: "all", district: "كل", type: "كل" });
+  const [filters, setFilters] = useState({ priority: "all", district: "ÙƒÙ„", type: "ÙƒÙ„" });
 
   return (
     <main className="min-h-screen bg-espresso font-tajawal text-gold-light">
@@ -573,7 +460,6 @@ export default function Dashboard() {
       <HeroKPIBar />
       <FiltersBar filters={filters} setFilters={setFilters} />
       <BranchHeatmap filters={filters} />
-      <MarketBenchmark />
       <VacancyTracker />
       <DistrictLeaderboard />
       <DashboardFooter />
